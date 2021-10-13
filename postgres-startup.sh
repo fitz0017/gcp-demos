@@ -36,7 +36,7 @@ sudo apt-get -y install postgresql
 # Create User
 USER=${1}
 sudo -u postgres createuser ${USER}
-if ${?} ; then 
+
 
 # Create DB 
 sudo -u postgres createdb ${DB_NAME}

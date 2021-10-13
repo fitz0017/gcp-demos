@@ -32,7 +32,7 @@ do
   case $OPTION in
   u) USERNAME=${OPTARG} ;;
   n) DB_NAME=${OPTARG} ;;
-  s) if [[ ${#OPTARG} -lt 4 ]]; then echo "Seed not long enough, $(usage)" exit 1; else SEED=$OPTARG; fi ;;
+  s) NUM=${#OPTARG}; echo ${#NUM} ; if [[ ${NUM} -lt 4 ]]; then echo "Seed not long enough, $(usage)" exit 1; else SEED=$OPTARG; fi ;;
   esac
 done
 

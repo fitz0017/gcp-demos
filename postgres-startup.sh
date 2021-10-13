@@ -27,12 +27,12 @@ then
   exit 1
 fi
 
-while getopts u:n:s OPTION
+while getopts u:n:s: OPTION
 do
   case $OPTION in
   u) USERNAME=${OPTARG} ;;
   n) DB_NAME=${OPTARG} ;;
-  s) NUM=${#OPTARG}; echo ${#NUM} ; if [[ ${NUM} -lt 4 ]]; then echo "Seed not long enough, $(usage)" exit 1; else SEED=$OPTARG; fi ;;
+  s) SEED=${OPTARG} ;;
   esac
 done
 

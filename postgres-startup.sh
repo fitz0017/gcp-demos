@@ -30,9 +30,9 @@ fi
 while getopts u:n:s OPTION
 do
   case $OPTION in
-  u) USERNAME=${OPTARG}
-  n) DB_NAME=${OPTARG}
-  s) if [[ "${OPTARG}" -lt 4 ]] ; echo "Seed not long enough, $(usage)" ; exit 1; else ; SEED=$OPTARG
+  u) USERNAME=${OPTARG} ;;
+  n) DB_NAME=${OPTARG} ;;
+  s) if [[ "${OPTARG}" -lt 4 ]] ; echo "Seed not long enough, $(usage)" ; exit 1; else ; SEED=$OPTARG ;;
   esac
 done
 
@@ -64,4 +64,8 @@ then
 fi
 
 #Print out local user and password to local file. 
-echo "Username: ${USERNAME} Database Name: ${DB_NAME}"
+echo "Username: ${USERNAME}"
+echo 
+echo "Password: ${PASSWORD}"
+echo
+echo "Database Name: ${DB_NAME}"

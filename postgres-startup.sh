@@ -27,27 +27,41 @@ then
   exit 1
 fi
 
+while getopts u:n:s OPTION
+do
+  case $OPTION in
+  u) USERNAME=${OPTARG}
+  n) DB_NAME=${OPTARG}
+  s) if [[ "${OPTARG}" -lt 4 ]] ; echo "Seed not long enough, $(usage)" ; exit 1; else ; SEED=$OPTARG
+  esac
+done
+
 # Download Postgres
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' &>/dev/null
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - &>/dev/null
 sudo apt-get update &>/dev/null
 sudo apt-get -y install postgresql &>/dev/null
 
+if [[ ${?} -ne 0 ]]
+then
+  echo "Postgres installation failed." >&2
+  exit 1
+fi
+
 # Create User
-USER=${1}
-sudo -u postgres createuser ${USER}
+sudo -u postgres createuser ${USERNAME}
 
 # Create DB 
-DB_NAME=${2}
 sudo -u postgres createdb ${DB_NAME}
 
 # Create Password
-# PASSWORD=$(date +%F%N | sha256sum | head -c12)
+PASSWORD=$(date +%F%N+"${SEED}" | sha256sum | head -c12)
 # CREATE USER $USER --PASSWORD ${PASSWORD}
 if [[ ${?} -ne 0 ]]
 then
-  echo "Postgres user creation failed." >&2
+  echo "Postgres user and DB creation failed." >&2
   exit 1
 fi
 
 #Print out local user and password to local file. 
+echo "Username: ${USERNAME} Database Name: ${DB_NAME}"

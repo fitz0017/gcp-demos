@@ -28,17 +28,17 @@ then
 fi
 
 # Download Postgres
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-sudo apt-get update
-sudo apt-get -y install postgresql
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' &>/dev/null
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - &>/dev/null
+sudo apt-get update &>/dev/null
+sudo apt-get -y install postgresql &>/dev/null
 
 # Create User
 USER=${1}
 sudo -u postgres createuser ${USER}
 
-
 # Create DB 
+DB_NAME=${2}
 sudo -u postgres createdb ${DB_NAME}
 
 # Create Password

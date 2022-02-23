@@ -12,3 +12,6 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 
 sudo python3 get-pip.py
 
+# Install Python code samples
+
+git clone https://github.com/GoogleCloudPlatform/python-docs-samples.git 
